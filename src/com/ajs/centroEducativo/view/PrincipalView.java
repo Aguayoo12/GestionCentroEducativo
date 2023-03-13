@@ -24,6 +24,7 @@ public class PrincipalView extends JFrame {
 		tabPanel.addTab("Tabla Profesor", new ProfesorView());
 		tabPanel.addTab("Tabla Materia", new MateriaView());
 		tabPanel.addTab("Tabla Valoracion Materia", new ValoracionMateriaView());
+		tabPanel.addTab("Prueba", new PruebaView());
 		
 		
 		return tabPanel;

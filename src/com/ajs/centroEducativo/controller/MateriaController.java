@@ -23,16 +23,10 @@ public class MateriaController {
 			CONN = ConnectionManagerV1.getConexion();
 			Statement st = CONN.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM centroeducativo.materia order by id limit 1");
-			Materia m = null;
-			if (rs.next()) {
-				m = new Materia(rs.getInt(1), rs.getString(2), rs.getString(3));
-				Curso c = new Curso();
-				c.setId(rs.getInt(4));
-				m.setCurso(c);
-			}
-			CONN.close();
-			st.close();
+			Materia m = getEntidadFromRs(rs);
 			rs.close();
+			st.close();
+			CONN.close();
 			return m;
 
 		} catch (SQLException e) {
@@ -42,25 +36,18 @@ public class MateriaController {
 		return null;
 	}
 	
-	public static Materia previous(Materia m) {
+	public static Materia previous(Materia m1) {
 		try {
 			CONN = ConnectionManagerV1.getConexion();
 			PreparedStatement ps = CONN.prepareStatement(
 					"SELECT * FROM centroeducativo.materia where id < ? order by id desc limit 1");
-			ps.setInt(1, m.getId());
+			ps.setInt(1, m1.getId());
 			ResultSet rs = ps.executeQuery();
-			Materia m1 = null;
-			if (rs.next()) {
-				m1 = new Materia(rs.getInt(1), rs.getString(2), rs.getString(3));
-				Curso c = new Curso();
-				c.setId(rs.getInt(4));
-				m1.setCurso(c);
-			}
-			CONN.close();
-			ps.close();
+			Materia m = getEntidadFromRs(rs);
 			rs.close();
-			
-			return m1;
+			ps.close();
+			CONN.close();
+			return m;
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -69,24 +56,18 @@ public class MateriaController {
 		return null;
 	}
 	
-	public static Materia next (Materia m) {
+	public static Materia next (Materia m1) {
 		try {
 			CONN = ConnectionManagerV1.getConexion();
 			PreparedStatement ps = CONN.prepareStatement(
 					"SELECT * FROM centroeducativo.materia where id > ? order by id limit 1");
-			ps.setInt(1, m.getId());
+			ps.setInt(1, m1.getId());
 			ResultSet rs = ps.executeQuery();
-			Materia m1 = null;
-			if (rs.next()) {
-				m1  = new Materia(rs.getInt(1), rs.getString(2), rs.getString(3));
-				Curso c1 = new Curso();
-				c1.setId(rs.getInt(4));
-				m1.setCurso(c1);
-			}
-			CONN.close();
-			ps.close();
+			Materia m = getEntidadFromRs(rs);
 			rs.close();
-			return m1;
+			ps.close();
+			CONN.close();
+			return m;
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -100,16 +81,10 @@ public class MateriaController {
 				CONN = ConnectionManagerV1.getConexion();
 				Statement st = CONN.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM centroeducativo.materia order by id desc limit 1");
-				Materia m = null;
-				if (rs.next()) {
-					m = new Materia(rs.getInt(1), rs.getString(2), rs.getString(3));
-					Curso c = new Curso();
-					c.setId(rs.getInt(4));
-					m.setCurso(c);
-				}
-				CONN.close();
-				st.close();
+				Materia m = getEntidadFromRs(rs);
 				rs.close();
+				st.close();
+				CONN.close();
 				return m;
 	
 			} catch (SQLException e) {
@@ -140,7 +115,7 @@ public class MateriaController {
 				int columasAfectadas = ps.executeUpdate();
 				JOptionPane.showMessageDialog(null, "Columnas afectadas: "+columasAfectadas);
 			}
-
+			CONN.close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -155,12 +130,10 @@ public class MateriaController {
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 			int siguiente = rs.getInt(1) + 1;
-			CONN.close();
 			rs.close();
 			ps.close();
 			return (siguiente);
 		}
-		CONN.close();
 		rs.close();
 		ps.close();
 		return 1;
@@ -181,7 +154,16 @@ public class MateriaController {
 		
 	}
 	
-	
+	private static Materia getEntidadFromRs(ResultSet rs) throws SQLException {
+		Materia m = null;
+		if (rs.next()) {
+			m = new Materia(rs.getInt("id"), rs.getString("nombre"), rs.getString("acronimo"));
+			Curso c = new Curso();
+			c.setId(rs.getInt("curso_id"));
+			m.setCurso(c);
+		}
+		return m;
+	}
 	
 	public static List<Materia> findAll(){
 		List<Materia> lp = new ArrayList<Materia>();

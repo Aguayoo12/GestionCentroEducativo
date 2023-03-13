@@ -1,12 +1,15 @@
 package com.ajs.centroEducativo.model;
 
+import java.sql.Date;
+
 public class Materia {
 	public int id;
 	public String nombre;
 	public String acronimo;
 	public Curso curso;
-	
-	
+	public Date fecha;
+	public boolean aprobado;
+	public String contrasena;
 
 	/*
 	 * 
@@ -51,13 +54,35 @@ public class Materia {
 		this.curso = curso;
 	}
 	
+	
+	
+	public String getContrasena() {
+		return contrasena;
+	}
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public boolean isAprobado() {
+		return aprobado;
+	}
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
+	}
 	@Override
 	public String toString() {
 		return "Materia " + nombre + ", " + acronimo  ;
 	}
 	@Override
 	public boolean equals(Object obj) {
-		return this.id == ((Materia) obj).id;
+		if(obj != null && this.id == ((Materia) obj).id)
+			return true;
+		return false;
 	}	
 	
 	

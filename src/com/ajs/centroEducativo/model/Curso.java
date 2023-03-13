@@ -42,7 +42,9 @@ public class Curso {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.id == ((Curso) obj).id;
+		if (obj != null && this.id == ((Curso) obj).id)
+			return true;
+		return false;
 	}
 	
 	

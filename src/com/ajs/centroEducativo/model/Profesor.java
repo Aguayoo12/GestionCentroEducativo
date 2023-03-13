@@ -80,8 +80,7 @@ public class Profesor {
 	 */
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
-				+ ", dni=" + dni + ", direccion=" + direccion + ", email=" + email + ", telefono=" + telefono + "]";
+		return "Profesor: " + nombre + " " + apellido1 + " " + apellido2;
 	}
 	@Override
 	public boolean equals(Object obj) {

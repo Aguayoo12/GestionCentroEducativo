@@ -39,8 +39,8 @@ public class MateriaView extends JPanel {
 	public MateriaView() {
 		setBackground(new Color(192, 192, 192));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0};
+//		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
+//		gridBagLayout.columnWeights = new double[]{0.0, 1.0};
 //		gridBagLayout.columnWidths = new int[]{0};
 //		gridBagLayout.rowHeights = new int[]{0};
 //		gridBagLayout.columnWeights = new double[]{Double.MIN_VALUE};
@@ -197,6 +197,8 @@ public class MateriaView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				nuevo();
+				eliminarElementoJcb();
+				llenarJcb();
 				
 			}
 		});
@@ -242,7 +244,6 @@ public class MateriaView extends JPanel {
 		jtfId.setText("0");
 		jtfNombre.setText("");
 		jtfAcronimo.setText("");
-		jcb.setSelectedIndex(1);
 	}
 	
 	private void findFirst() {
@@ -275,7 +276,10 @@ public class MateriaView extends JPanel {
 		}
 	}
 	
-
+	private void eliminarElementoJcb() {
+		jcb.removeAllItems();
+	}
+	
 	
 	private void mostrarMateria (Materia m) {
 		jtfId.setText(""+m.getId());
